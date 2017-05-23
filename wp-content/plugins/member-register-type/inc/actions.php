@@ -3,18 +3,10 @@ add_shortcode('test-page', 'test_page');
 
 function test_page() {
     global $mrt_profile;
-
-    $user_id = 2;
-
-    $group = Groups_Group::read_by_name('ABC');
-
-    Groups_User_Group::create(
-            array(
-                'user_id' => $user_id,
-                'group_id' => $group->group_id
-            )
-    );
-
+    $gform = new Gform();
+    $form = $gform->set_form(AppForm::new_adoptive_family());
+    
+    echo '<pre>', print_r($form), '</pre>';
     exit();
 }
 
@@ -130,7 +122,7 @@ add_shortcode('filter-page', 'page_filter_user');
 
 function page_filter_user() {
 
- 
+
     $mrt_muser = new Muser;
     $gform = new Gform();
     $formhtmljq = new FormHtmlJq();
@@ -143,10 +135,10 @@ function page_filter_user() {
     <?php foreach ($form['fields'] as $key => $value): ?>
         <h3><?php echo $value['label']; ?></h3>
         <ul>
-        <?php foreach ($value['options'] as $key => $value): ?>
+            <?php foreach ($value['options'] as $key => $value): ?>
                 <li><?php echo $value; ?></li>
             <?php endforeach; ?>
         </ul>
-        <?php endforeach; ?>
+    <?php endforeach; ?>
     <?php
 }
